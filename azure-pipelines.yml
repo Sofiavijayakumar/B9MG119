@@ -1,0 +1,28 @@
+trigger:
+  branches:
+    include:
+      - dev
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
+
+- task: Docker@2
+  displayName: 'Build and Push Docker image'
+  inputs:
+    command: 'buildAndPush'
+    containerRegistry: 'YourContainerRegistryConnection'  # Update this with your container registry connection name
+    repository: 'yourrepositoryname'  # Update this with your repository name
+    dockerfile: '**/Dockerfile'
+    buildContext: '$(Build.SourcesDirectory)'
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Docker image artifact'
+  inputs:
+    artifactName: 'docker-image'
+    path: '$(Build.SourcesDirectory)'
