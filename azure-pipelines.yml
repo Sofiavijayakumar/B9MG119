@@ -16,7 +16,7 @@ steps:
   displayName: 'Build and Push Docker image'
   inputs:
     command: 'buildAndPush'
-    containerRegistry: 'Sofiavijayakumar'  # Update this with your container registry connection name
+    containerRegistry: 'B9MG119'  # Update this with your container registry connection name
     repository: 'B9MG119'  # Update this with your repository name
     dockerfile: '**/Dockerfile'
     buildContext: '$(Build.SourcesDirectory)'
