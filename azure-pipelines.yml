@@ -21,10 +21,3 @@ steps:
     command: 'save'
     dockerRepository: 'azurecontainerimage'
     savePath: '$(Build.ArtifactStagingDirectory)/docker-image.tar'
-
-- task: CopyFiles@2
-  displayName: 'Copy Docker image to Azure VM'
-  inputs:
-    SourceFolder: '$(Build.ArtifactStagingDirectory)'
-    Contents: 'docker-image.tar'
-    TargetFolder: '$(build.artifactstagingdirectory)/output'
