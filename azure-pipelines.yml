@@ -1,3 +1,8 @@
+
+trigger:
+  branches:
+    include:
+      - main
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -7,17 +12,14 @@ steps:
     packageType: 'sdk'
     version: '6.0.x'
 
-- task: Docker@2
-  displayName: 'Build Docker image'
+ task: Docker@2
+  displayName: 'Build and Push Docker image'
   inputs:
-    command: 'build'
-    dockerfile: '**/Dockerfile'
+    containerRegistry: 'B9MG119'  
+    repository: 'B9MG119/DockerContactManagerApi'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
     buildContext: '$(Build.SourcesDirectory)'
-    imageName: 'azurecontainerimage'
-
-- task: Docker@2
-  displayName: 'Save Docker image'
-  inputs:
-    command: 'save'
-    dockerRepository: 'azurecontainerimage'
-    savePath: '$(Build.ArtifactStagingDirectory)/docker-image.tar'
+    tags: |
+      $(Build.BuildId)
+      latest
